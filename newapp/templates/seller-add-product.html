@@ -1,0 +1,249 @@
+{% extends 'seller-header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-seller-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 65px 0 50px;
+       }
+       .luxury-seller-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .luxury-seller-banner nav a {
+          color: #888888;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+       }
+       .luxury-seller-banner nav a:hover {
+          color: #c5a059;
+       }
+       .seller-product-area {
+          background: #fafafa;
+          padding: 75px 0 95px;
+       }
+       .seller-card-luxury {
+          background: #ffffff;
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+          padding: 45px 35px;
+          position: relative;
+       }
+       .seller-card-luxury::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #c5a059;
+          border-radius: 4px 4px 0 0;
+       }
+       .seller-card-luxury h3 {
+          font-size: 22px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          margin-bottom: 8px;
+          text-align: center;
+       }
+       .seller-card-luxury p.card-subtext {
+          font-size: 13px;
+          color: #777777;
+          text-align: center;
+          margin-bottom: 30px;
+          letter-spacing: 0.3px;
+       }
+       .form-label-luxury {
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #333333;
+          margin-bottom: 6px;
+          display: block;
+       }
+       .input-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          height: 48px;
+          font-size: 14px;
+          color: #111111;
+          padding: 10px 16px;
+          transition: all 0.3s ease;
+       }
+       .input-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .select-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          height: 48px !important;
+          font-size: 14px;
+          color: #111111;
+          padding: 10px 16px;
+          width: 100%;
+          line-height: normal;
+          transition: all 0.3s ease;
+       }
+       .select-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .textarea-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          font-size: 14px;
+          color: #111111;
+          padding: 12px 16px;
+          transition: all 0.3s ease;
+       }
+       .textarea-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .file-input-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          padding: 10px 14px;
+          font-size: 13px;
+          color: #555555;
+          width: 100%;
+          height: auto;
+       }
+       .file-input-luxury:focus {
+          border-color: #c5a059;
+          outline: none;
+       }
+       .status-alert {
+          background: rgba(197, 160, 89, 0.1);
+          border: 1px solid #c5a059;
+          color: #8c6d2d;
+          font-size: 13px;
+          font-weight: 600;
+          padding: 10px 14px;
+          border-radius: 2px;
+          margin-bottom: 22px;
+          text-align: center;
+       }
+       .btn-monarch-curate-submit {
+          width: 100%;
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          height: 50px;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          cursor: pointer;
+          transition: all 0.35s ease;
+          margin-top: 10px;
+       }
+       .btn-monarch-curate-submit:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+          transform: translateY(-2px);
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-seller-banner">
+       <div class="container">
+          <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+             <div class="col-first">
+                <h1>Vault Cataloguing</h1>
+                <nav class="d-flex align-items-center mt-2">
+                   <a href="/">Home<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="#">Add Shoes</a>
+                </nav>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- Start Add Product Section -->
+    <section class="login_box_area seller-product-area">
+       <div class="container">
+          <div class="row justify-content-center">
+             <div class="col-lg-7 col-md-9">
+                <div class="seller-card-luxury">
+                   <h3>Add New Shoes to Vault</h3>
+                   <p class="card-subtext">Publish new footwear models with authenticated specifications and high-definition photography.</p>
+
+                   {% if msg %}
+                   <div class="status-alert">
+                      {{ msg }}
+                   </div>
+                   {% endif %}
+
+                   <form class="row login_form" action="{% url 'seller-add-product' %}" method="post" enctype="multipart/form-data" id="addProductForm">
+                      {% csrf_token %}
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="product_category">Footwear Lineage / Brand</label>
+                         <select class="form-control select-luxury" id="product_category" name="product_category" required>
+                            <option value="">--- Select Footwear Brand ---</option>
+                            <option value="Adidas">Adidas</option>
+                            <option value="Nike">Nike</option>
+                            <option value="Woodland">Woodland</option>
+                            <option value="Clarks formal">Clarks Formal</option>
+                         </select>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="product_name">Shoes Name</label>
+                         <input type="text" class="form-control input-luxury" id="product_name" name="product_name" placeholder="e.g. Jordan 1 Retro High OG" required>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="product_price">Shoes Value (₹)</label>
+                         <input type="number" class="form-control input-luxury" id="product_price" name="product_price" placeholder="Enter retail price in INR" required>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="product_desc">Shoes Specifications & Narrative</label>
+                         <textarea class="form-control textarea-luxury" id="product_desc" name="product_desc" rows="3" placeholder="Provide materials, colorway details, and collection background..." required></textarea>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-4">
+                         <label class="form-label-luxury" for="product_image">Primary Editorial Photograph</label>
+                         <input type="file" class="form-control file-input-luxury" id="product_image" name="product_image" accept="image/*" required>
+                      </div>
+
+                      <div class="col-md-12 form-group mb-0">
+                         <button type="submit" class="btn-monarch-curate-submit">List Shoes in Vault</button>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Add Product Section -->
+
+{% endblock %}

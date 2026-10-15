@@ -1,0 +1,257 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-auth-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 60px 0 45px;
+       }
+       .luxury-auth-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .luxury-auth-banner nav a {
+          color: #888888;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+       }
+       .luxury-auth-banner nav a:hover {
+          color: #c5a059;
+       }
+       .login_box_area {
+          background: #fafafa;
+          padding: 70px 0 90px;
+       }
+       .login_box_wrapper {
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          overflow: hidden;
+          background: #ffffff;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+       }
+       .login_box_img {
+          position: relative;
+          background: #111111;
+          height: 100%;
+          min-height: 480px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+       }
+       .login_box_img img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.35;
+          position: absolute;
+          top: 0;
+          left: 0;
+       }
+       .login_box_img .hover {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          padding: 40px 30px;
+          max-width: 420px;
+       }
+       .login_box_img .hover h4 {
+          color: #ffffff;
+          font-size: 22px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+       }
+       .login_box_img .hover p {
+          color: #cccccc;
+          font-size: 13.5px;
+          line-height: 1.6;
+          margin-bottom: 25px;
+       }
+       .btn-monarch-secondary {
+          display: inline-block;
+          background: transparent;
+          color: #c5a059;
+          border: 1.5px solid #c5a059;
+          padding: 11px 28px;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: all 0.35s ease;
+       }
+       .btn-monarch-secondary:hover {
+          background: #c5a059;
+          color: #111111;
+          box-shadow: 0 4px 18px rgba(197, 160, 89, 0.35);
+       }
+       .login_form_inner {
+          padding: 50px 45px;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background: #ffffff;
+       }
+       .login_form_inner h3 {
+          font-size: 22px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          margin-bottom: 6px;
+       }
+       .client-subtext {
+          font-size: 13px;
+          color: #777777;
+          margin-bottom: 24px;
+          letter-spacing: 0.3px;
+       }
+       .form-control-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          height: 48px;
+          font-size: 14px;
+          color: #111111;
+          padding: 10px 16px;
+          transition: all 0.3s ease;
+       }
+       .form-control-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .status-alert {
+          background: rgba(197, 160, 89, 0.1);
+          border: 1px solid #c5a059;
+          color: #8c6d2d;
+          font-size: 13px;
+          font-weight: 600;
+          padding: 10px 14px;
+          border-radius: 2px;
+          margin-bottom: 20px;
+          text-align: center;
+       }
+       .creat_account label {
+          font-size: 13px;
+          color: #555555;
+          cursor: pointer;
+          user-select: none;
+       }
+       .btn-monarch-submit {
+          width: 100%;
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          height: 48px;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          cursor: pointer;
+          transition: all 0.35s ease;
+          margin-bottom: 15px;
+       }
+       .btn-monarch-submit:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.3);
+          transform: translateY(-2px);
+       }
+       .forgot-link {
+          font-size: 12.5px;
+          color: #666666;
+          text-decoration: none;
+          letter-spacing: 0.3px;
+          transition: color 0.3s ease;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+       }
+       .forgot-link:hover {
+          color: #c5a059;
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-auth-banner">
+       <div class="container">
+          <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+             <div class="col-first">
+                <h1>Client Access</h1>
+                <nav class="d-flex align-items-center mt-2">
+                   <a href="/">Home<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="#">Authentication</a>
+                </nav>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Login Box Area =================-->
+    <section class="login_box_area">
+       <div class="container">
+          <div class="row no-gutters login_box_wrapper">
+             <div class="col-lg-6">
+                <div class="login_box_img">
+                   <img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="Monarch Kicks Boutique">
+                   <div class="hover">
+                      <h4>New to Monarch Kicks?</h4>
+                      <p>Gain private allocation access, secure curated sneaker drops, and manage your luxury order archives.</p>
+                      <a class="btn-monarch-secondary" href="{% url 'signup' %}">Create An Account</a>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="login_form_inner">
+                   <h3>Client Portal</h3>
+                   <p class="client-subtext">Sign in to review acquisitions and manage vault details.</p>
+
+                   {% if msg %}
+                   <div class="status-alert">
+                      {{ msg }}
+                   </div>
+                   {% endif %}
+
+                   <form class="row login_form" action="{% url 'login' %}" method="post" id="contactForm" novalidate="novalidate">
+                      {% csrf_token %}
+                      <div class="col-md-12 form-group mb-3">
+                         <input type="email" class="form-control form-control-luxury" id="name" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                      </div>
+                      <div class="col-md-12 form-group mb-3">
+                         <input type="password" class="form-control form-control-luxury" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                      </div>
+                      <div class="col-md-12 form-group mb-3">
+                         <div class="creat_account d-flex align-items-center">
+                            <input type="checkbox" id="f-option2" name="selector" class="mr-2">
+                            <label for="f-option2" class="m-0">Remember session</label>
+                         </div>
+                      </div>
+                      <div class="col-md-12 form-group">
+                         <button type="submit" value="submit" class="btn-monarch-submit">Sign In</button>
+                         <a class="forgot-link" href="{% url 'forgot-password' %}">Recover Credentials?</a>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!--================End Login Box Area =================-->
+
+{% endblock %}

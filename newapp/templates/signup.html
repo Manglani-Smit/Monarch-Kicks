@@ -1,0 +1,286 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-auth-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 65px 0 50px;
+       }
+       .luxury-auth-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .luxury-auth-banner nav a {
+          color: #888888;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+       }
+       .luxury-auth-banner nav a:hover {
+          color: #c5a059;
+       }
+       .register-section-area {
+          background: #fafafa;
+          padding: 70px 0 90px;
+       }
+       .register-card-luxury {
+          background: #ffffff;
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+          padding: 45px 35px;
+          position: relative;
+       }
+       .register-card-luxury::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #c5a059;
+          border-radius: 4px 4px 0 0;
+       }
+       .register-card-luxury h3 {
+          font-size: 22px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          margin-bottom: 8px;
+          text-align: center;
+       }
+       .register-card-luxury p.card-subtext {
+          font-size: 13px;
+          color: #777777;
+          text-align: center;
+          margin-bottom: 30px;
+          letter-spacing: 0.3px;
+       }
+       .form-label-luxury {
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #333333;
+          margin-bottom: 6px;
+          display: block;
+       }
+       .input-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          height: 48px;
+          font-size: 14px;
+          color: #111111;
+          padding: 10px 16px;
+          transition: all 0.3s ease;
+       }
+       .input-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .select-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          height: 48px !important;
+          font-size: 14px;
+          color: #111111;
+          padding: 10px 16px;
+          width: 100%;
+          line-height: normal;
+          transition: all 0.3s ease;
+       }
+       .select-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .textarea-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          font-size: 14px;
+          color: #111111;
+          padding: 12px 16px;
+          transition: all 0.3s ease;
+       }
+       .textarea-luxury:focus {
+          background: #ffffff;
+          border-color: #c5a059;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+       }
+       .file-input-luxury {
+          background: #fbfbfb;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          padding: 10px 14px;
+          font-size: 13px;
+          color: #555555;
+          width: 100%;
+          height: auto;
+       }
+       .file-input-luxury:focus {
+          border-color: #c5a059;
+          outline: none;
+       }
+       .status-alert {
+          background: rgba(197, 160, 89, 0.1);
+          border: 1px solid #c5a059;
+          color: #8c6d2d;
+          font-size: 13px;
+          font-weight: 600;
+          padding: 10px 14px;
+          border-radius: 2px;
+          margin-bottom: 22px;
+          text-align: center;
+       }
+       .btn-monarch-register-submit {
+          width: 100%;
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          height: 50px;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          cursor: pointer;
+          transition: all 0.35s ease;
+          margin-top: 10px;
+       }
+       .btn-monarch-register-submit:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+          transform: translateY(-2px);
+       }
+       .auth-login-link {
+          text-align: center;
+          margin-top: 18px;
+          font-size: 13px;
+          color: #666666;
+       }
+       .auth-login-link a {
+          color: #111111;
+          font-weight: 700;
+          text-decoration: none;
+          transition: color 0.3s ease;
+       }
+       .auth-login-link a:hover {
+          color: #c5a059;
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-auth-banner">
+       <div class="container">
+          <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+             <div class="col-first">
+                <h1>Client Registration</h1>
+                <nav class="d-flex align-items-center mt-2">
+                   <a href="/">Home<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="#">Register</a>
+                </nav>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Register Box Area =================-->
+    <section class="login_box_area register-section-area">
+       <div class="container">
+          <div class="row justify-content-center">
+             <div class="col-lg-7 col-md-9">
+                <div class="register-card-luxury">
+                   <h3>Create Member Profile</h3>
+                   <p class="card-subtext">Join the Monarch Kicks circle for private allocations, limited sneaker runs, and curated vault archives.</p>
+
+                   {% if msg %}
+                   <div class="status-alert">
+                      {{ msg }}
+                   </div>
+                   {% endif %}
+
+                   <form class="row login_form" action="{% url 'signup' %}" method="post" enctype="multipart/form-data" id="registerForm">
+                      {% csrf_token %}
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="firstname">Profile Role</label>
+                         <select class="form-control select-luxury" id="firstname" name="usertype" required>
+                            <option value="">--- Select Account Classification ---</option>
+                            <option value="buyer">Collector / Buyer</option>
+                            <option value="seller">Curator / Seller</option>
+                         </select>
+                      </div>
+
+                      <div class="col-md-6 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="firstname">First Name</label>
+                         <input type="text" class="form-control input-luxury" id="firstname" name="fname" placeholder="Enter first name" required>
+                      </div>
+
+                      <div class="col-md-6 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="lastname">Last Name</label>
+                         <input type="text" class="form-control input-luxury" id="lastname" name="lname" placeholder="Enter last name" required>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="email">Email Address</label>
+                         <input type="email" class="form-control input-luxury" id="email" name="email" placeholder="Enter email address" required>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="mobile">Mobile Number</label>
+                         <input type="tel" class="form-control input-luxury" id="mobile" name="mobile" placeholder="Enter mobile contact number" required>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="address">Vault Delivery Address</label>
+                         <textarea class="form-control textarea-luxury" id="address" name="address" rows="3" placeholder="Enter full dispatch address coordinates" required></textarea>
+                      </div>
+
+                      <div class="col-md-12 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="image">Identification / Profile Portrait</label>
+                         <input type="file" class="form-control file-input-luxury" id="image" name="profile_picture" accept="image/*" required>
+                      </div>
+
+                      <div class="col-md-6 form-group text-left mb-3">
+                         <label class="form-label-luxury" for="password">Passcode</label>
+                         <input type="password" class="form-control input-luxury" id="password" name="password" placeholder="Create secure passcode" required>
+                      </div>
+
+                      <div class="col-md-6 form-group text-left mb-4">
+                         <label class="form-label-luxury" for="confirmpassword">Confirm Passcode</label>
+                         <input type="password" class="form-control input-luxury" id="confirmpassword" name="cpassword" placeholder="Re-enter passcode" required>
+                      </div>
+
+                      <div class="col-md-12 form-group mb-2">
+                         <button type="submit" value="submit" class="btn-monarch-register-submit">Complete Membership Registration</button>
+                      </div>
+
+                      <div class="col-md-12 form-group mb-0 auth-login-link">
+                         <p class="mb-0">Already authenticated with Monarch Kicks? <a href="{% url 'login' %}">Sign In to Vault</a></p>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!--================End Register Box Area =================-->
+
+{% endblock %}

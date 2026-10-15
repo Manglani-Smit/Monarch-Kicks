@@ -1,0 +1,264 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-details-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 65px 0 50px;
+       }
+       .luxury-details-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .luxury-details-banner nav a {
+          color: #888888;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+       }
+       .luxury-details-banner nav a:hover {
+          color: #c5a059;
+       }
+       .product_image_area {
+          padding: 80px 0 90px;
+          background: #ffffff;
+       }
+       .single-prd-item-luxury {
+          background: #fafafa;
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          padding: 40px 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 460px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+          position: relative;
+       }
+       .single-prd-item-luxury img {
+          max-height: 380px;
+          object-fit: contain;
+          transition: transform 0.4s ease;
+       }
+       .single-prd-item-luxury:hover img {
+          transform: scale(1.03);
+       }
+       .s_product_text {
+          padding-top: 15px;
+       }
+       .s_product_text h3 {
+          font-size: 28px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #111111;
+          margin-bottom: 12px;
+       }
+       .s_product_text h2 {
+          font-size: 26px;
+          font-weight: 800;
+          color: #c5a059;
+          margin-bottom: 20px;
+          letter-spacing: 0.5px;
+       }
+       .s_product_text .list {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 22px;
+          border-top: 1px solid #eeeeee;
+          border-bottom: 1px solid #eeeeee;
+          padding: 12px 0;
+       }
+       .s_product_text .list li {
+          font-size: 13.5px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #777777;
+       }
+       .s_product_text .list li a {
+          color: #111111;
+          font-weight: 800;
+          margin-left: 5px;
+          text-decoration: none;
+          transition: color 0.3s ease;
+       }
+       .s_product_text .list li a:hover {
+          color: #c5a059;
+       }
+       .s_product_text p {
+          color: #555555;
+          font-size: 14.5px;
+          line-height: 1.8;
+          margin-bottom: 30px;
+       }
+       .product_count {
+          display: flex;
+          align-items: center;
+          margin-bottom: 35px;
+          gap: 12px;
+       }
+       .product_count label {
+          font-weight: 700;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #111111;
+          margin: 0;
+       }
+       .product_count .qty {
+          width: 60px;
+          height: 42px;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          text-align: center;
+          font-weight: 700;
+          color: #111111;
+          background: #fafafa;
+       }
+       .product_count .items-count {
+          width: 32px;
+          height: 42px;
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #111111;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          border-radius: 2px;
+       }
+       .product_count .items-count:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+       }
+       .card_area {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+       }
+       .btn-monarch-action {
+          display: inline-block;
+          background: #111111;
+          color: #c5a059 !important;
+          border: 1px solid #c5a059;
+          padding: 13px 26px;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: all 0.35s ease;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+       }
+       .btn-monarch-action:hover {
+          background: #c5a059;
+          color: #111111 !important;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+          transform: translateY(-2px);
+       }
+       .btn-monarch-outline {
+          display: inline-block;
+          background: #fafafa;
+          color: #222222 !important;
+          border: 1px solid #dcdcdc;
+          padding: 13px 24px;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: all 0.35s ease;
+       }
+       .btn-monarch-outline:hover {
+          background: #111111;
+          border-color: #111111;
+          color: #ffffff !important;
+          transform: translateY(-2px);
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-details-banner">
+       <div class="container">
+          <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+             <div class="col-first">
+                <h1>Shoe Showcase</h1>
+                <nav class="d-flex align-items-center mt-2">
+                   <a href="/">Home<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="{% url 'shop' cat='all' %}">Vault<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="{% url 'product-details' product.pk %}">{{ product.product_name }}</a>
+                </nav>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Single Product Area =================-->
+    <div class="product_image_area">
+       <div class="container">
+          <div class="row s_product_inner align-items-center">
+             <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="single-prd-item-luxury">
+                   <img class="d-block w-100 img-fluid" src="{{product.product_image.url}}" alt="{{product.product_name}}">
+                </div>
+             </div>
+             <div class="col-lg-5 offset-lg-1">
+                <div class="s_product_text">
+                   <h3>{{product.product_name}}</h3>
+                   <h2>₹{{product.product_price}}</h2>
+                   <ul class="list">
+                      <li>Lineage / Category : <a class="active" href="{% url 'shop' cat='Adidas' %}"><span>{{product.product_category}}</span></a></li>
+                   </ul>
+                   <p>{{product.product_desc}}</p>
+
+                   {% if request.session.email %}
+                   <div class="product_count">
+                      <label for="qty">Quantity:</label>
+                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" readonly>
+                      <div class="d-flex">
+                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
+                          class="reduced items-count ml-1" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                      </div>
+                   </div>
+                   {% endif %}
+
+                   <div class="card_area align-items-center">
+                      {% if request.session.email %}
+                         {% if cart_flag == False %}
+                            <a class="btn-monarch-action" href="{% url 'add-to-cart' pk=product.pk %}">Add to Bag</a>
+                         {% else %}
+                            <a class="btn-monarch-outline" href="{% url 'remove-from-cart' pk=product.pk %}">Remove From Bag</a>
+                         {% endif %}
+
+                         {% if wishlist_flag == False %}
+                            <a class="btn-monarch-action" href="{% url 'add-to-wishlist' pk=product.pk %}">Save to Wishlist</a>
+                         {% else %}
+                            <a class="btn-monarch-outline" href="{% url 'remove-from-wishlist' pk=product.pk %}">Remove From Wishlist</a>
+                         {% endif %}
+                      {% else %}
+                         <a class="btn-monarch-action" href="{% url 'login' %}">Sign In to Acquire</a>
+                      {% endif %}
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!--================End Single Product Area =================-->
+
+{% endblock %}

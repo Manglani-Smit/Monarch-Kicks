@@ -1,0 +1,255 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-cart-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 70px 0 50px;
+       }
+       .luxury-cart-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+       }
+       .cart_area {
+          padding: 60px 0 80px;
+          background: #ffffff;
+       }
+       .cart_inner {
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          padding: 20px 25px;
+          background: #ffffff;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+       }
+       .table thead th {
+          border-top: none;
+          border-bottom: 2px solid #111111;
+          color: #111111;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 13px;
+          padding: 16px 12px;
+       }
+       .table tbody tr td {
+          vertical-align: middle;
+          border-bottom: 1px solid #f0f0f0;
+          padding: 20px 12px;
+          color: #222222;
+       }
+       .cart-product-img {
+          width: 80px;
+          height: 80px;
+          object-fit: contain;
+          background: #fafafa;
+          border-radius: 4px;
+          border: 1px solid #ebebeb;
+          padding: 5px;
+          margin-right: 18px;
+       }
+       .cart-product-title {
+          font-weight: 700;
+          font-size: 15px;
+          color: #111111;
+          margin: 0;
+          letter-spacing: 0.3px;
+       }
+       .cart-price-text {
+          font-size: 15px;
+          font-weight: 700;
+          color: #111111;
+          margin: 0;
+       }
+       .qty-input-box {
+          width: 70px;
+          border: 1px solid #cccccc;
+          border-radius: 2px;
+          padding: 6px 10px;
+          font-weight: 600;
+          color: #111111;
+          text-align: center;
+          transition: border-color 0.3s ease;
+       }
+       .qty-input-box:focus {
+          border-color: #c5a059;
+          outline: none;
+       }
+       .subtotal_area td {
+          border-top: 2px solid #111111 !important;
+          border-bottom: none !important;
+          padding-top: 25px !important;
+       }
+       .subtotal_area h5 {
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 0.5px;
+          color: #111111;
+          margin: 0;
+       }
+       .subtotal_area .gold-total {
+          color: #c5a059 !important;
+       }
+       .gray_btn {
+          display: inline-block;
+          background: #f4f4f4;
+          color: #333333;
+          border: 1px solid #dcdcdc;
+          padding: 12px 24px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          font-size: 12px;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: all 0.3s ease;
+       }
+       .gray_btn:hover {
+          background: #111111;
+          border-color: #111111;
+          color: #ffffff;
+       }
+       .btn-monarch-checkout {
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          padding: 12px 28px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          font-size: 12px;
+          border-radius: 2px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+       }
+       .btn-monarch-checkout:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+          transform: translateY(-2px);
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-cart-banner">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+                <div class="col-first">
+                    <h1>Shopping Bag</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Silhouette</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col" style="text-align: right;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in carts %}
+                            <!-- Product Row -->
+                            <tr>
+                                <td>
+                                    <div class="media align-items-center">
+                                        <div class="d-flex">
+                                            <img src="{{i.product.product_image.url}}" alt="{{i.product.product_name}}" class="cart-product-img">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="cart-product-title">{{i.product.product_name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="cart-price-text">₹{{i.product.product_price}}</h5>
+                                </td>
+                                <td>
+                                    <form name="change_qty" method="post" action="{% url 'change-qty' pk=i.pk %}">
+                                        {% csrf_token %}
+                                        <input type="number" min="1" max="10" name="product_qty" value="{{i.product_qty}}" class="qty-input-box" onchange="this.form.submit();">
+                                    </form>
+                                </td>
+                                <td style="text-align: right;">
+                                    <h5 class="cart-price-text">₹{{i.total_price}}</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            <!-- Subtotal Row -->
+                            <tr class="subtotal_area">
+                                <td colspan="3" style="text-align: right; padding-right: 20px;">
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td style="text-align: right;">
+                                    <h5 class="gold-total">₹{{net_price}}</h5>
+                                </td>
+                            </tr>
+
+                            <!-- Checkout Action Buttons -->
+                            <tr class="out_button_area">
+                                <td colspan="4" style="border-top: none; padding-top: 30px;">
+                                    <div class="checkout_btn_inner d-flex align-items-center justify-content-end" style="gap: 14px;">
+                                        <a class="gray_btn" href="{% url 'shop' cat='all' %}">Continue Shopping</a>
+                                        <form method="post" class="m-0">
+                                            {% csrf_token %}
+                                            <input type="hidden" id="net_price" name="amount" value="{{net_price}}">
+                                            <button class="btn-monarch-checkout" type="button" id="checkout-button">Proceed To Checkout</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+<script type="text/javascript">
+var stripe = Stripe('pk_test_51MshH6SJuXwPfjjrrgxJ5tubbOgYAhRrqNcd4RDUSq1peWpIMZrjhIiTncSUWO9u6byeDf4KxdZPkFD4hU55mVOg00aRL5RT8x');
+var checkoutButton = document.getElementById('checkout-button');
+
+checkoutButton.addEventListener('click', function() {
+ fetch('/create-checkout-session/', {
+ method: 'POST',
+    headers:{
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+    },
+    body: JSON.stringify({'post_data':'{{net_price}}'})
+ })
+ .then(function(response) {
+ return response.json();
+ })
+ .then(function(session) {
+ return stripe.redirectToCheckout({ sessionId: session.id });
+ })
+ .then(function(result) {
+ if (result.error) {
+ alert(result.error.message);
+ }
+ })
+ .catch(function(error) {
+ console.error('Error:', error);
+ });
+});
+</script>
+
+{% endblock %}

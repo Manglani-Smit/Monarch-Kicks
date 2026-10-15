@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+    <meta name="author" content="Monarch Kicks">
+    <meta name="description" content="Monarch Kicks Curator & Partner Portal">
+    <meta charset="UTF-8">
+    <title>Monarch Kicks | Curator Portal</title>
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- Monarch Kicks Luxury Theme Override -->
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+
+    <style>
+       .brand-title {
+          font-size: 22px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          color: #111111;
+          text-transform: uppercase;
+          margin: 0;
+          display: inline-block;
+          vertical-align: middle;
+       }
+       .brand-title span {
+          color: #c5a059;
+       }
+       .portal-badge {
+          display: inline-block;
+          font-size: 10px;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          padding: 2px 7px;
+          border-radius: 2px;
+          margin-left: 10px;
+          font-weight: 700;
+          vertical-align: middle;
+       }
+       .profile-avatar {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #c5a059;
+          transition: all 0.3s ease;
+       }
+       .profile-avatar:hover {
+          box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+       }
+       .footer-area {
+          background-color: #0d0d0d !important;
+          color: #aaaaaa;
+          border-top: 2px solid #c5a059;
+       }
+       .footer-area h6 {
+          color: #c5a059 !important;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+       }
+       .footer-area p, .footer-text {
+          color: #888888 !important;
+       }
+       .footer-social a i {
+          color: #dddddd;
+          transition: 0.3s;
+       }
+       .footer-social a i:hover {
+          color: #c5a059;
+       }
+    </style>
+</head>
+
+<body>
+
+    <!-- Start Header Area -->
+    <header class="header_area sticky-header">
+       <div class="main_menu">
+          <nav class="navbar navbar-expand-lg navbar-light main_box">
+             <div class="container">
+                <!-- Brand Identity -->
+                <a class="navbar-brand logo_h d-flex align-items-center" href="/">
+                   <h1 class="brand-title">Monarch <span>Kicks</span></h1>
+                   <span class="portal-badge">Curator</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                </button>
+
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                   <ul class="nav navbar-nav menu_nav ml-auto align-items-center">
+                      <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'seller-add-product' %}">Add Product</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'seller-view-product' cat='all' %}">View Product</a></li>
+                      <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
+                      {% if request.session.email %}
+                      <!-- Profile Picture -->
+                      <li class="nav-item">
+                         <a href="{% url 'profile' %}" class="nav-link p-0 mr-2" title="Curator Profile">
+                            {% if request.session.profile_picture %}
+                               <img src="{{ request.session.profile_picture }}" alt="Profile" class="profile-avatar">
+                            {% else %}
+                               <img src="{% static 'img/fav.png' %}" alt="Profile" class="profile-avatar">
+                            {% endif %}
+                         </a>
+                      </li>
+
+                      <!-- Curator Account Dropdown -->
+                      <li class="nav-item submenu dropdown">
+                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ request.session.fname }}
+                         </a>
+                         <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Curator Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'change-password' %}">Security</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sign Out</a></li>
+                         </ul>
+                      </li>
+                      {% else %}
+                      <!-- Guest Actions -->
+                      <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Sign In</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Register</a></li>
+                      {% endif %}
+                   </ul>
+                   <ul class="nav navbar-nav navbar-right">
+                      <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                      <li class="nav-item">
+                         <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                      </li>
+                   </ul>
+                </div>
+             </div>
+          </nav>
+       </div>
+       <div class="search_input" id="search_input_box">
+          <div class="container">
+             <form class="d-flex justify-content-between">
+                <input type="text" class="form-control" id="search_input" placeholder="Search Inventory Vault">
+                <button type="submit" class="btn"></button>
+                <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+             </form>
+          </div>
+       </div>
+    </header>
+    <!-- End Header Area -->
+
+{% block content %}
+{% endblock %}
+
+    <!-- Start Footer Area -->
+    <footer class="footer-area section_gap">
+       <div class="container">
+          <div class="row">
+             <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                   <h6>About Monarch Kicks</h6>
+                   <p>
+                      Curating elite sneakers, limited-run silhouettes, and high-fashion streetwear footwear for connoisseurs worldwide.
+                   </p>
+                </div>
+             </div>
+             <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                   <h6>Curator Dispatch</h6>
+                   <p>Receive private catalog updates and inventory forecasts.</p>
+                   <div id="mc_embed_signup">
+                      <form target="_blank" novalidate="true" action="#" method="get" class="form-inline">
+                         <div class="d-flex flex-row">
+                            <input class="form-control" name="EMAIL" placeholder="Enter Email" required="" type="email" style="border-radius: 2px 0 0 2px;">
+                            <button class="click-btn btn btn-default" style="background: #c5a059; color: #111; border-radius: 0 2px 2px 0;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                         </div>
+                      </form>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-footer-widget mail-chimp">
+                   <h6 class="mb-20">Gallery</h6>
+                   <ul class="instafeed d-flex flex-wrap">
+                      <li><img src="{% static 'img/i1.jpg' %}" alt=""></li>
+                      <li><img src="{% static 'img/i2.jpg' %}" alt=""></li>
+                      <li><img src="{% static 'img/i3.jpg' %}" alt=""></li>
+                      <li><img src="{% static 'img/i4.jpg' %}" alt=""></li>
+                      <li><img src="{% static 'img/i5.jpg' %}" alt=""></li>
+                      <li><img src="{% static 'img/i6.jpg' %}" alt=""></li>
+                   </ul>
+                </div>
+             </div>
+             <div class="col-lg-2 col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                   <h6>Connect</h6>
+                   <p>Follow our drops</p>
+                   <div class="footer-social d-flex align-items-center">
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                      <a href="#"><i class="fa fa-behance"></i></a>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap pt-4">
+             <p class="footer-text m-0">
+                Copyright &copy; <script>document.write(new Date().getFullYear());</script> Monarch Kicks Curator Desk. All rights reserved.
+             </p>
+          </div>
+       </div>
+    </footer>
+    <!-- End Footer Area -->
+
+    <!-- Core Scripts -->
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'js/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

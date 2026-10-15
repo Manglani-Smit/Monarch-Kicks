@@ -1,0 +1,119 @@
+/* ========================================================
+   MONARCH KICKS - LUXURY FOOTWEAR THEME OVERRIDES
+   ======================================================== */
+
+:root {
+    --gold-primary: #c5a059;       /* Royal Muted Gold */
+    --gold-hover: #b38f46;
+    --luxury-black: #0d0d0d;      /* Deep Matte Obsidian */
+    --card-bg: #ffffff;
+    --border-subtle: #eaeaea;
+    --text-luxury: #111111;
+}
+
+/* 1. Primary Luxury Buttons */
+.primary-btn,
+.main_btn,
+.banner-area .primary-btn,
+.cart-area .primary-btn,
+button.primary-btn,
+.view-btn {
+    background: var(--luxury-black) !important;
+    background-image: none !important;
+    border: 1px solid var(--gold-primary) !important;
+    color: var(--gold-primary) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    font-size: 13px !important;
+    border-radius: 2px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.35s ease-in-out !important;
+}
+
+.primary-btn:hover,
+.main_btn:hover,
+button.primary-btn:hover,
+.view-btn:hover {
+    background: var(--gold-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--gold-primary) !important;
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 2. Top Header & Navigation */
+.header_area.navbar_fixed .main_menu {
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+}
+
+.nav-link.active,
+.navbar-nav .nav-item:hover .nav-link,
+.navbar-nav .nav-item.active .nav-link {
+    color: var(--gold-primary) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+}
+
+/* 3. Top Banner & Breadcrumb Area (Royal Obsidian & Gold Accent) */
+.organic-breadcrumb,
+.banner-area {
+    background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%) !important;
+    border-bottom: 1.5px solid var(--gold-primary) !important;
+}
+
+.breadcrumb-banner h1 {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+.breadcrumb-banner nav a {
+    color: #999999 !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.breadcrumb-banner nav a:hover {
+    color: var(--gold-primary) !important;
+}
+
+/* 4. Luxury Product Cards */
+.single-product {
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 4px !important;
+    background: var(--card-bg) !important;
+    padding: 16px !important;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.single-product:hover {
+    border-color: var(--gold-primary) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-4px) !important;
+}
+
+.single-product .price h6 {
+    color: var(--text-luxury) !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* 5. Cart Table & Checkout Details */
+.cart_inner .table tbody tr td h5,
+.order_details_table .table tbody tr td h5 {
+    color: var(--text-luxury) !important;
+    font-weight: 700 !important;
+}
+
+.pagination a.active,
+.pagination a:hover {
+    background: var(--luxury-black) !important;
+    border-color: var(--gold-primary) !important;
+    color: var(--gold-primary) !important;
+}

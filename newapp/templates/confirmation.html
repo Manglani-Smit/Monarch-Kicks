@@ -1,0 +1,273 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-confirm-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 70px 0 50px;
+       }
+       .luxury-confirm-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .luxury-confirm-banner nav a {
+          color: #888888;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+       }
+       .luxury-confirm-banner nav a:hover {
+          color: #c5a059;
+       }
+       .order_details {
+          background: #ffffff;
+          padding: 60px 0 80px;
+       }
+       .title_confirmation_luxury {
+          color: #111111 !important;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          font-size: 22px;
+          margin-bottom: 40px;
+       }
+       .title_confirmation_luxury span {
+          color: #c5a059;
+       }
+       .details_item_luxury {
+          background: #fafafa;
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          padding: 28px 24px;
+          height: 100%;
+          transition: all 0.3s ease;
+       }
+       .details_item_luxury:hover {
+          border-color: #c5a059;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+       }
+       .details_item_luxury h4 {
+          font-size: 14px;
+          font-weight: 800;
+          color: #111111;
+          text-transform: uppercase;
+          letter-spacing: 1.2px;
+          margin-bottom: 18px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #e0e0e0;
+       }
+       .details_item_luxury ul.list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+       }
+       .details_item_luxury ul.list li {
+          margin-bottom: 10px;
+          font-size: 14px;
+          color: #444444;
+          line-height: 1.5;
+       }
+       .details_item_luxury ul.list li span {
+          font-weight: 700;
+          color: #111111;
+          display: inline-block;
+          min-width: 90px;
+       }
+       .details_item_luxury ul.list li a {
+          color: #333333;
+          text-decoration: none;
+       }
+       .order_details_table_luxury {
+          border: 1px solid #ebebeb;
+          border-radius: 4px;
+          padding: 35px 30px;
+          background: #ffffff;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+       }
+       .order_details_table_luxury h2 {
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          margin-bottom: 25px;
+       }
+       .order_details_table_luxury table thead th {
+          border-top: none;
+          border-bottom: 2px solid #111111;
+          color: #111111;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 13px;
+          padding: 16px 12px;
+       }
+       .order_details_table_luxury table tbody tr td {
+          vertical-align: middle;
+          border-bottom: 1px solid #f0f0f0;
+          padding: 18px 12px;
+          color: #222222;
+       }
+       .order_details_table_luxury table tbody tr td p {
+          margin: 0;
+          font-weight: 600;
+          color: #111111;
+       }
+       .order_details_table_luxury table tbody tr td h5 {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+          color: #555555;
+       }
+       .total_row_luxury td {
+          border-top: 2px solid #111111 !important;
+          border-bottom: none !important;
+          padding-top: 25px !important;
+       }
+       .total_row_luxury h4 {
+          font-size: 18px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin: 0;
+       }
+       .total_price_gold {
+          color: #c5a059 !important;
+          font-size: 20px !important;
+       }
+       .btn-monarch-continue {
+          display: inline-block;
+          background: #111111;
+          color: #c5a059;
+          border: 1px solid #c5a059;
+          padding: 12px 32px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          font-size: 12px;
+          border-radius: 2px;
+          text-decoration: none;
+          transition: all 0.35s ease;
+       }
+       .btn-monarch-continue:hover {
+          background: #c5a059;
+          color: #111111;
+          border-color: #c5a059;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
+          transform: translateY(-2px);
+       }
+       .navbar-nav .dropdown-menu {
+      min-width: 220px !important;
+   }
+   .navbar-nav .dropdown-menu .nav-link {
+      white-space: nowrap !important;
+      padding: 10px 20px !important;
+   }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-confirm-banner">
+       <div class="container">
+          <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+             <div class="col-first">
+                <h1>Order Confirmation</h1>
+                <nav class="d-flex align-items-center mt-2">
+                   <a href="/">Home<span class="lnr lnr-arrow-right mx-2"></span></a>
+                   <a href="#">Confirmation</a>
+                </nav>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- Start Order Details Section -->
+    <section class="order_details section_gap">
+       <div class="container">
+          <h3 class="title_confirmation_luxury text-center">
+             Acquisition Complete. <span>Order Confirmed</span>
+          </h3>
+
+          <div class="row order_d_inner">
+             <div class="col-lg-4 mb-4">
+                <div class="details_item_luxury">
+                   <h4>Order Summary</h4>
+                   <ul class="list">
+                      <li><a href="#"><span>Order ID</span>: #SWG-{{ order_id }}</a></li>
+                      <li><a href="#"><span>Total Paid</span>: ₹{{ total_amount }}</a></li>
+                      <li><a href="#"><span>Status</span>: Settled via Stripe</a></li>
+                   </ul>
+                </div>
+             </div>
+             <div class="col-lg-4 mb-4">
+                <div class="details_item_luxury">
+                   <h4>Client Profile</h4>
+                   <ul class="list">
+                      <li><a href="#"><span>Name</span>: {{ user.fname }} {{ user.lname }}</a></li>
+                      <li><a href="#"><span>Email</span>: {{ user.email }}</a></li>
+                      <li><a href="#"><span>Mobile</span>: {{ user.mobile }}</a></li>
+                   </ul>
+                </div>
+             </div>
+             <div class="col-lg-4 mb-4">
+                <div class="details_item_luxury">
+                   <h4>Vault Destination</h4>
+                   <ul class="list">
+                      <li><a href="#"><span>Address</span>: {{ user.address }}</a></li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+
+          <div class="order_details_table_luxury mt-5">
+             <h2>Receipt Breakdown</h2>
+             <div class="table-responsive">
+                <table class="table">
+                   <thead>
+                      <tr>
+                         <th scope="col">Shoes</th>
+                         <th scope="col">Quantity</th>
+                         <th scope="col" style="text-align: right;">Total Price</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      {% for cart in carts %}
+                      <tr>
+                         <td>
+                            <p>{{ cart.product.product_name }}</p>
+                         </td>
+                         <td>
+                            <h5>x {{ cart.product_qty }}</h5>
+                         </td>
+                         <td style="text-align: right;">
+                            <p>₹{{ cart.total_price }}</p>
+                         </td>
+                      </tr>
+                      {% endfor %}
+                      <tr class="total_row_luxury">
+                         <td>
+                            <h4>Total Paid</h4>
+                         </td>
+                         <td></td>
+                         <td style="text-align: right;">
+                            <h4 class="total_price_gold">₹{{ total_amount }}</h4>
+                         </td>
+                      </tr>
+                   </tbody>
+                </table>
+             </div>
+             <div class="text-center mt-5">
+                <a class="btn-monarch-continue" href="/">Continue Browsing</a>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Order Details Section -->
+
+{% endblock %}

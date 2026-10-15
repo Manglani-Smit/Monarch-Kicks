@@ -1,0 +1,28 @@
+# Environment secrets (Sabse important - GitHub par kabhi push nahi hoga)
+.env
+*.env
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# PyCharm / VS Code settings
+.idea/
+.vscode/
+
+# Static collected folder (Render collectstatic khud run karega)
+staticfiles/
+
+# System files
+*.log
+.DS_Store
+Thumbs.dbA
+
+datadump.json

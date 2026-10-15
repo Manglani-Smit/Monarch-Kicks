@@ -1,0 +1,147 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-orders-banner {
+          background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+          border-bottom: 2px solid #c5a059;
+          padding: 70px 0 50px;
+       }
+       .luxury-orders-banner h1 {
+          color: #ffffff;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 28px;
+       }
+       .orders-archive-area {
+          padding: 60px 0 90px;
+          background: #ffffff;
+       }
+       .orders_inner {
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          padding: 25px 30px;
+          background: #ffffff;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+       }
+       .table thead th {
+          border-top: none;
+          border-bottom: 2px solid #111111;
+          color: #111111;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 13px;
+          padding: 16px 12px;
+       }
+       .table tbody tr td {
+          vertical-align: middle;
+          border-bottom: 1px solid #f0f0f0;
+          padding: 20px 12px;
+          color: #222222;
+       }
+       .order-product-img {
+          width: 80px;
+          height: 80px;
+          object-fit: contain;
+          background: #fafafa;
+          border-radius: 4px;
+          border: 1px solid #ebebeb;
+          padding: 5px;
+          margin-right: 18px;
+       }
+       .order-product-title {
+          font-weight: 700;
+          font-size: 15px;
+          color: #111111;
+          margin: 0;
+          letter-spacing: 0.3px;
+       }
+       .order-price-text {
+          font-size: 15px;
+          font-weight: 700;
+          color: #111111;
+          margin: 0;
+       }
+       .qty-readonly-box {
+          width: 65px;
+          border: 1px solid #e0e0e0;
+          border-radius: 2px;
+          padding: 6px 10px;
+          font-weight: 700;
+          color: #555555;
+          text-align: center;
+          background-color: #fcfcfc;
+          cursor: default;
+       }
+       .order-total-gold {
+          font-size: 16px;
+          font-weight: 800;
+          color: #c5a059;
+          margin: 0;
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-orders-banner">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-between">
+                <div class="col-first">
+                    <h1>Order Archives</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Orders Area =================-->
+    <section class="cart_area orders-archive-area">
+        <div class="container">
+            <div class="orders_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Silhouette</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col" style="text-align: right;">Total Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in carts %}
+                            <!-- Product Row -->
+                            <tr>
+                                <td>
+                                    <div class="media align-items-center">
+                                        <div class="d-flex">
+                                            <img src="{{i.product.product_image.url}}" alt="{{i.product.product_name}}" class="order-product-img">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="order-product-title">{{i.product.product_name}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="order-price-text">₹{{i.product.product_price}}</h5>
+                                </td>
+                                <td>
+                                    <input type="number" min="1" max="10" name="product_qty" value="{{i.product_qty}}" class="qty-readonly-box" readonly>
+                                </td>
+                                <td style="text-align: right;">
+                                    <h5 class="order-total-gold">₹{{i.total_price}}</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Orders Area =================-->
+
+{% endblock %}

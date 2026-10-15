@@ -1,0 +1,319 @@
+{% extends 'seller-header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-curator-banner {
+          background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+          color: #ffffff;
+          position: relative;
+          overflow: hidden;
+          border-bottom: 2px solid #c5a059;
+       }
+       .luxury-curator-banner h1 {
+          font-size: 3rem;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          line-height: 1.15;
+       }
+       .luxury-curator-banner h1 span {
+          color: #c5a059;
+       }
+       .luxury-curator-banner p {
+          color: #cccccc;
+          font-size: 1.05rem;
+       }
+       .btn-monarch-curator {
+          background: #c5a059 !important;
+          color: #111111 !important;
+          border: 1px solid #c5a059 !important;
+          font-weight: 700 !important;
+          letter-spacing: 1.5px !important;
+          text-transform: uppercase !important;
+          padding: 12px 30px !important;
+          border-radius: 2px !important;
+          transition: all 0.3s ease !important;
+          display: inline-block;
+          text-decoration: none;
+       }
+       .btn-monarch-curator:hover {
+          background: #ffffff !important;
+          color: #111111 !important;
+          border-color: #ffffff !important;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4) !important;
+          transform: translateY(-2px);
+       }
+       .feature-card-curator {
+          background: #ffffff;
+          border: 1px solid #ededed;
+          border-radius: 4px;
+          transition: all 0.35s ease;
+       }
+       .feature-card-curator:hover {
+          border-color: #c5a059;
+          transform: translateY(-4px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+       }
+       .feature-card-curator h6 {
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          color: #111111;
+          margin-top: 10px;
+       }
+       .deal-box-curator {
+          border: 1px solid #ececec;
+          border-radius: 4px;
+          overflow: hidden;
+          background: #000;
+       }
+       .deal-box-curator img {
+          transition: transform 0.4s ease;
+          opacity: 0.92;
+       }
+       .deal-box-curator:hover img {
+          transform: scale(1.04);
+          opacity: 1;
+       }
+       .section-heading-curator h2 {
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          font-size: 2.2rem;
+       }
+       .section-heading-curator p {
+          color: #777777;
+          letter-spacing: 0.5px;
+       }
+       .single-product-curator {
+          background: #ffffff;
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          padding: 18px;
+          transition: all 0.35s ease;
+          position: relative;
+          margin-bottom: 30px;
+       }
+       .single-product-curator:hover {
+          border-color: #c5a059;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+          transform: translateY(-4px);
+       }
+       .single-product-curator .product-details h6 {
+          font-weight: 700;
+          font-size: 16px;
+          color: #111111;
+          margin-top: 15px;
+          margin-bottom: 8px;
+          letter-spacing: 0.3px;
+       }
+       .single-product-curator .price h6 {
+          color: #c5a059 !important;
+          font-weight: 800 !important;
+          font-size: 17px !important;
+       }
+       .prd-bottom-curator .social-info {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 8px 16px;
+          border-radius: 2px;
+          background: #111111;
+          border: 1px solid #111111;
+          color: #c5a059 !important;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+       }
+       .prd-bottom-curator .social-info span {
+          margin-right: 6px;
+          font-size: 14px;
+       }
+       .prd-bottom-curator .social-info p.hover-text {
+          margin: 0;
+          display: inline-block;
+          color: #c5a059;
+       }
+       .prd-bottom-curator .social-info:hover {
+          background: #c5a059;
+          border-color: #c5a059;
+          color: #111111 !important;
+          box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
+       }
+       .prd-bottom-curator .social-info:hover p.hover-text {
+          color: #111111;
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-curator-banner py-5">
+       <div class="container">
+          <div class="row align-items-center py-4">
+             <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                <div class="banner-content">
+                   <h6 class="text-uppercase mb-2" style="color: #c5a059; letter-spacing: 2px; font-weight: 700;">Curator Command Desk</h6>
+                   <h1>Vault Catalog <br><span>Inventory Control</span></h1>
+                   <p class="my-4">Manage, inspect, and adjust limited-run footwear listings. Ensure all authenticated silhouettes meet Monarch Kicks boutique standards.</p>
+                   <div>
+                      <a class="btn-monarch-curator" href="{% url 'seller-add-product' %}">List New Shoes</a>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-6 col-md-6 text-center">
+                <div class="banner-img" style="background: radial-gradient(circle, #262626 0%, #111111 75%); border-radius: 8px; overflow: hidden; height: 420px; display: flex; align-items: center; justify-content: center; border: 1px solid #333333;">
+                   <img class="img-fluid" src="{% static 'img/banner/banner-img.png' %}" alt="Monarch Kicks Showcase" style="max-height: 90%; object-fit: contain;">
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- Start Features Area -->
+    <section class="features-area py-5" style="background: #fafafa; border-bottom: 1px solid #ededed;">
+       <div class="container">
+          <div class="row">
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card-curator p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon1.png' %}" alt="Verified Logistics">
+                   </div>
+                   <h6>Secured Logistics</h6>
+                   <p class="text-muted small mb-0">Insured express dispatch for all client allocations</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card-curator p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon2.png' %}" alt="Authentication Guarantee">
+                   </div>
+                   <h6>Vault Authentication</h6>
+                   <p class="text-muted small mb-0">Multi-point physical provenance verification</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card-curator p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon3.png' %}" alt="Partner Advisory">
+                   </div>
+                   <h6>Partner Advisory</h6>
+                   <p class="text-muted small mb-0">Direct 24/7 priority desk for curated partners</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card-curator p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon4.png' %}" alt="Instant Settlements">
+                   </div>
+                   <h6>Direct Settlements</h6>
+                   <p class="text-muted small mb-0">Encrypted merchant payouts via Stripe Connect</p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Features Area -->
+
+    <!-- Start Category Area -->
+    <section class="category-area py-5">
+       <div class="container">
+          <div class="row justify-content-center">
+             <div class="col-lg-8 col-md-12">
+                <div class="row">
+                   <div class="col-lg-8 col-md-8 mb-4">
+                      <div class="deal-box-curator position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c1.jpg' %}" alt="Editorial Collection">
+                      </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 mb-4">
+                      <div class="deal-box-curator position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c2.jpg' %}" alt="Minimal Silhouettes">
+                      </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 mb-4">
+                      <div class="deal-box-curator position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c3.jpg' %}" alt="High-Top Run">
+                      </div>
+                   </div>
+                   <div class="col-lg-8 col-md-8 mb-4">
+                      <div class="deal-box-curator position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c4.jpg' %}" alt="Signature Editions">
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-4 col-md-6 mb-4">
+                <div class="deal-box-curator position-relative h-100">
+                   <img class="img-fluid w-100 h-100" style="object-fit: cover;" src="{% static 'img/category/c5.jpg' %}" alt="Limited Vault Drop">
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Category Area -->
+
+    <!-- Start Product Area -->
+    <section class="py-5" style="background: #ffffff;">
+       <div class="container">
+          <div class="row justify-content-center mb-5">
+             <div class="col-lg-6 text-center section-heading-curator">
+                <h2>Catalogued Shoes</h2>
+                <p>Manage and adjust active vault listings below.</p>
+             </div>
+          </div>
+
+          <section class="lattest-product-area pb-40 category-list">
+             <div class="row">
+                {% for i in products %}
+                <div class="col-lg-4 col-md-6">
+                   <div class="single-product-curator">
+                      <div style="height: 260px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 4px; overflow: hidden;">
+                         <img class="img-fluid" src="{{ i.product_image.url }}" alt="{{ i.product_name }}" style="max-height: 220px; object-fit: contain;">
+                      </div>
+                      <div class="product-details text-center">
+                         <h6>{{ i.product_name }}</h6>
+                         <div class="price mb-3">
+                            <h6>₹{{ i.product_price }}</h6>
+                         </div>
+                         <div class="prd-bottom-curator justify-content-center d-flex">
+                            <a href="{% url 'seller-edit-product' pk=i.pk %}" class="social-info" title="Modify Silhouette Details">
+                               <span class="ti-pencil-alt"></span>
+                               <p class="hover-text">Edit Details</p>
+                            </a>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+          </section>
+       </div>
+    </section>
+    <!-- End Product Area -->
+
+    <!-- Start Brand Area -->
+    <section class="brand-area py-5" style="background: #fafafa; border-top: 1px solid #ededed;">
+       <div class="container">
+          <div class="row align-items-center text-center">
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/1.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/2.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/3.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/4.png' %}" alt="Partner Brand">
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Brand Area -->
+
+{% endblock %}

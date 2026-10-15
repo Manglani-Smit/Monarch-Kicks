@@ -1,0 +1,307 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+       .luxury-banner {
+          background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+          color: #ffffff;
+          position: relative;
+          overflow: hidden;
+          border-bottom: 2px solid #c5a059;
+       }
+       .luxury-banner h1 {
+          font-size: 3rem;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          line-height: 1.15;
+       }
+       .luxury-banner h1 span {
+          color: #c5a059;
+       }
+       .luxury-banner p {
+          color: #cccccc;
+          font-size: 1.05rem;
+       }
+       .btn-monarch {
+          background: #c5a059 !important;
+          color: #111111 !important;
+          border: 1px solid #c5a059 !important;
+          font-weight: 700 !important;
+          letter-spacing: 1.5px !important;
+          text-transform: uppercase !important;
+          padding: 12px 30px !important;
+          border-radius: 2px !important;
+          transition: all 0.3s ease !important;
+          display: inline-block;
+          text-decoration: none;
+       }
+       .btn-monarch:hover {
+          background: #ffffff !important;
+          color: #111111 !important;
+          border-color: #ffffff !important;
+          box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4) !important;
+          transform: translateY(-2px);
+       }
+       .feature-card {
+          background: #ffffff;
+          border: 1px solid #ededed;
+          border-radius: 4px;
+          transition: all 0.35s ease;
+       }
+       .feature-card:hover {
+          border-color: #c5a059;
+          transform: translateY(-4px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+       }
+       .feature-card h6 {
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          color: #111111;
+          margin-top: 10px;
+       }
+       .deal-box {
+          border: 1px solid #ececec;
+          border-radius: 4px;
+          overflow: hidden;
+          background: #000;
+       }
+       .deal-box img {
+          transition: transform 0.4s ease;
+          opacity: 0.92;
+       }
+       .deal-box:hover img {
+          transform: scale(1.04);
+          opacity: 1;
+       }
+       .section-heading h2 {
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #111111;
+          font-size: 2.2rem;
+       }
+       .section-heading p {
+          color: #777777;
+          letter-spacing: 0.5px;
+       }
+       .single-product {
+          background: #ffffff;
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          padding: 18px;
+          transition: all 0.35s ease;
+          position: relative;
+          margin-bottom: 30px;
+       }
+       .single-product:hover {
+          border-color: #c5a059;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+          transform: translateY(-4px);
+       }
+       .single-product .product-details h6 {
+          font-weight: 700;
+          font-size: 16px;
+          color: #111111;
+          margin-top: 15px;
+          margin-bottom: 8px;
+          letter-spacing: 0.3px;
+       }
+       .single-product .price h6 {
+          color: #c5a059 !important;
+          font-weight: 800 !important;
+          font-size: 17px !important;
+       }
+       .prd-bottom .social-info {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #f7f7f7;
+          border: 1px solid #e0e0e0;
+          color: #222222;
+          margin-right: 6px;
+          transition: all 0.3s ease;
+          text-decoration: none;
+       }
+       .prd-bottom .social-info:hover {
+          background: #111111;
+          border-color: #111111;
+          color: #c5a059;
+       }
+    </style>
+
+    <!-- Start Banner Area -->
+    <section class="banner-area luxury-banner py-5">
+       <div class="container">
+          <div class="row align-items-center py-4">
+             <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                <div class="banner-content">
+                   <h6 class="text-uppercase mb-2" style="color: #c5a059; letter-spacing: 2px; font-weight: 700;">Exclusive Collection</h6>
+                   <h1>Elite Silhouettes <br><span>Limited Editions</span></h1>
+                   <p class="my-4">Handcrafted prestige and curated high-fashion streetwear. Engineered for collectors who value uncompromising aesthetics.</p>
+                   <div>
+                      <a class="btn-monarch" href="{% url 'shop' cat='all' %}">Explore Vault</a>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-6 col-md-6 text-center">
+                <div class="banner-img" style="background: radial-gradient(circle, #262626 0%, #111111 75%); border-radius: 8px; overflow: hidden; height: 420px; display: flex; align-items: center; justify-content: center; border: 1px solid #333333;">
+                   <img class="img-fluid" src="{% static 'img/banner/banner-img.png' %}" alt="Monarch Kicks Showcase" style="max-height: 90%; object-fit: contain;">
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- Start Features Area -->
+    <section class="features-area py-5" style="background: #fafafa; border-bottom: 1px solid #ededed;">
+       <div class="container">
+          <div class="row">
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon1.png' %}" alt="Complimentary Courier">
+                   </div>
+                   <h6>Bespoke Delivery</h6>
+                   <p class="text-muted small mb-0">Complimentary insured delivery on orders</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon2.png' %}" alt="Return Policy">
+                   </div>
+                   <h6>Concierge Returns</h6>
+                   <p class="text-muted small mb-0">Hassle-free 14-day client exchanges</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon3.png' %}" alt="24/7 Concierge">
+                   </div>
+                   <h6>Client Advisory</h6>
+                   <p class="text-muted small mb-0">Direct 24/7 VIP styling support</p>
+                </div>
+             </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 text-center mb-3">
+                <div class="feature-card p-4">
+                   <div class="f-icon mb-2">
+                      <img src="{% static 'img/features/f-icon4.png' %}" alt="Secure Transactions">
+                   </div>
+                   <h6>Encrypted Checkout</h6>
+                   <p class="text-muted small mb-0">Protected via Stripe Level 1 PCI</p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Features Area -->
+
+    <!-- Start Category Area -->
+    <section class="category-area py-5">
+       <div class="container">
+          <div class="row justify-content-center">
+             <div class="col-lg-8 col-md-12">
+                <div class="row">
+                   <div class="col-lg-8 col-md-8 mb-4">
+                      <div class="deal-box position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c1.jpg' %}" alt="Editorial Collection">
+                      </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 mb-4">
+                      <div class="deal-box position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c2.jpg' %}" alt="Minimal Silhouettes">
+                      </div>
+                   </div>
+                   <div class="col-lg-4 col-md-4 mb-4">
+                      <div class="deal-box position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c3.jpg' %}" alt="High-Top Run">
+                      </div>
+                   </div>
+                   <div class="col-lg-8 col-md-8 mb-4">
+                      <div class="deal-box position-relative">
+                         <img class="img-fluid w-100" src="{% static 'img/category/c4.jpg' %}" alt="Signature Editions">
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-4 col-md-6 mb-4">
+                <div class="deal-box position-relative h-100">
+                   <img class="img-fluid w-100 h-100" style="object-fit: cover;" src="{% static 'img/category/c5.jpg' %}" alt="Limited Vault Drop">
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Category Area -->
+
+    <!-- Start Product Area -->
+    <section class="py-5" style="background: #ffffff;">
+       <div class="container">
+          <div class="row justify-content-center mb-5">
+             <div class="col-lg-6 text-center section-heading">
+                <h2>Curated Arrivals</h2>
+                <p>Limited quantities available. Authentic inspection guaranteed.</p>
+             </div>
+          </div>
+
+          <section class="lattest-product-area pb-40 category-list">
+             <div class="row">
+                {% for i in products %}
+                <div class="col-lg-4 col-md-6">
+                   <div class="single-product">
+                      <div style="height: 260px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-radius: 4px; overflow: hidden;">
+                         <img class="img-fluid" src="{{ i.product_image.url }}" alt="{{ i.product_name }}" style="max-height: 220px; object-fit: contain;">
+                      </div>
+                      <div class="product-details text-center">
+                         <h6>{{ i.product_name }}</h6>
+                         <div class="price mb-3">
+                            <h6>₹{{ i.product_price }}</h6>
+                         </div>
+                         <div class="prd-bottom justify-content-center d-flex">
+                            {% if request.session.email %}
+                            <a href="#" class="social-info" title="Add To Bag"><span class="ti-bag"></span></a>
+                            <a href="#" class="social-info" title="Save to Wishlist"><span class="lnr lnr-heart"></span></a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="social-info" title="Login to Buy"><span class="ti-bag"></span></a>
+                            <a href="{% url 'login' %}" class="social-info" title="Login to Save"><span class="lnr lnr-heart"></span></a>
+                            {% endif %}
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+          </section>
+       </div>
+    </section>
+    <!-- End Product Area -->
+
+    <!-- Start Brand Area -->
+    <section class="brand-area py-5" style="background: #fafafa; border-top: 1px solid #ededed;">
+       <div class="container">
+          <div class="row align-items-center text-center">
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/1.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/2.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/3.png' %}" alt="Partner Brand">
+             </div>
+             <div class="col-6 col-md-3 mb-3" style="filter: grayscale(100%) contrast(150%); opacity: 0.65;">
+                <img class="img-fluid" src="{% static 'img/brand/4.png' %}" alt="Partner Brand">
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- End Brand Area -->
+
+{% endblock %}
