@@ -369,8 +369,8 @@ def create_checkout_session(request):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=domain_url + f'/confirmation/?user_email={user.email}',
-        cancel_url=domain_url + '/cancel/',
+        success_url=domain_url + f'/success.html',
+        cancel_url=domain_url + '/cancel.html',
         customer_email=user.email,
         shipping_address_collection={
             'allowed_countries': ['IN'],
