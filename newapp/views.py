@@ -346,7 +346,6 @@ def change_qty(request,pk):
 
 @csrf_exempt
 def create_checkout_session(request):
-    domain_url = request.build_absolute_uri('/')[:-1]
     amount = int(json.load(request)['post_data'])
     final_amount = amount * 100
     user = User.objects.get(email=request.session['email'])
@@ -360,23 +359,24 @@ def create_checkout_session(request):
                 'currency': 'inr',
                 'unit_amount': final_amount,
                 'product_data': {
-                    'name': 'Monarch Kicks Order',
+                    'name': 'Checkout Session Data',
                     'description': f'''Customer:{user_name},\n\n
-                Address:{user_address},\n
-                Mobile:{user_mobile}''',
+					Address:{user_address},\n
+					Mobile:{user_mobile}''',
                 },
             },
             'quantity': 1,
         }],
         mode='payment',
-        success_url=domain_url + f'/success.html',
-        cancel_url=domain_url + '/cancel.html',
+        success_url=YOUR_DOMAIN + '/success.html',
+        cancel_url=YOUR_DOMAIN + '/cancel.html',
         customer_email=user.email,
         shipping_address_collection={
             'allowed_countries': ['IN'],
         }
     )
     return JsonResponse({'id': session.id})
+
 
 def success(request):
     user = User.objects.get(email=request.session['email'])
@@ -393,5 +393,5 @@ def cancel(request):
 
 def myorder(request):
     user = User.objects.get(email=request.session['email'])
-    carts = Cart.objects.filter(user=user, payment_status=True).select_related('product')
+    carts = Cart.objects.filter(user=user, payment_status=True)
     return render(request, 'myorder.html', {'carts': carts})
