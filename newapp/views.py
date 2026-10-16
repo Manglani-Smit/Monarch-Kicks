@@ -378,52 +378,77 @@ def create_checkout_session(request):
     )
     return JsonResponse({'id': session.id})
 
+
 def confirmation(request):
-    try:
-        user_email = request.GET.get('user_email', request.session.get('email'))
-    except Exception:
-        user_email = request.session.get('email')
+    user_email = request.GET.get('user_email') or request.session.get('email')
+
+    if not user_email:
+        return render(request, 'confirmation.html', {'error': 'User not found'})
 
     request.session['email'] = user_email
-    user = User.objects.get(email=user_email)
 
-    # 1. Unpaid carts fetch karo
-    unpaid_carts = Cart.objects.filter(user=user, payment_status=False).select_related('product')
-    carts = list(unpaid_carts)
+    # 1. Safe User Fetch (Crash-proof)
+    try:
+        user = User.objects.get(email=user_email)
+    except User.DoesNotExist:
+        user = None
 
+    carts = []
     total_amount = 0
-    for i in carts:
-        total_amount += i.total_price
-        i.payment_status = True
-        i.save()
 
-    # Agar session me cart items count rakhte ho toh use 0 kar do
+    # 2. Update Cart Items if User Exists
+    if user:
+        unpaid_carts = Cart.objects.filter(user=user, payment_status=False).select_related('product')
+        carts = list(unpaid_carts)
+
+        # Agar unpaid nahi mila toh recently paid le lo (refresh hone par blank na ho)
+        if not carts:
+            carts = list(Cart.objects.filter(user=user, payment_status=True).select_related('product')[:5])
+        else:
+            for i in carts:
+                total_amount += i.total_price
+                i.payment_status = True
+                i.save()
+
+    # Clear session cart indicators
     request.session['cart_count'] = 0
     if 'cart' in request.session:
         del request.session['cart']
     request.session.modified = True
 
     order_id = random.randint(10000, 99999)
-    email_context = {
-        'user': user,
-        'carts': carts,
-        'total_amount': total_amount,
-        'order_id': order_id,
-    }
 
-    # 2. Safe Mail Send
-    try:
-        subject = f"Order Placed! Monarch Kicks (#MK-{order_id})"
-        html_message = render_to_string('email_confirmation.html', email_context)
-        plain_message = strip_tags(html_message)
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
-        to_email = [user.email]
+    # 3. Completely Isolated Email Sending (Failure will NEVER cause 500 error)
+    if user:
+        try:
+            email_context = {
+                'user': user,
+                'carts': carts,
+                'total_amount': total_amount,
+                'order_id': order_id,
+            }
+            subject = f"Order Placed! Monarch Kicks (#MK-{order_id})"
 
-        email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
-        email.attach_alternative(html_message, "text/html")
-        email.send(fail_silently=False)
-    except Exception as e:
-        print("Mail error details:", e)
+            # Agar template exist karta hai toh HTML, warna simple fallback
+            try:
+                html_message = render_to_string('email_confirmation.html', email_context)
+                plain_message = strip_tags(html_message)
+            except Exception:
+                html_message = None
+                plain_message = f"Hello {user.fname}, your order #{order_id} has been placed successfully."
+
+            from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
+            to_email = [user.email]
+
+            if html_message:
+                email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
+                email.attach_alternative(html_message, "text/html")
+                email.send(fail_silently=True)
+            else:
+                from django.core.mail import send_mail
+                send_mail(subject, plain_message, from_email, to_email, fail_silently=True)
+        except Exception as e:
+            print("Background mail error:", e)
 
     return render(request, 'confirmation.html', {
         'user': user,
