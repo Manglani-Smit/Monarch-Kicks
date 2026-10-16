@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+import threading
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -400,6 +401,19 @@ def create_checkout_session(request):
     return JsonResponse({'id': session.id})
 
 
+def send_email_in_background(subject, plain_message, from_email, to_email, html_message=None):
+    try:
+        if html_message:
+            email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
+            email.attach_alternative(html_message, "text/html")
+            email.send(fail_silently=True)
+        else:
+            from django.core.mail import send_mail
+            send_mail(subject, plain_message, from_email, to_email, fail_silently=True)
+    except Exception as e:
+        print("Background mail sending failed:", e)
+
+
 def success(request):
     user_email = request.GET.get('user_email') or request.session.get('email')
 
@@ -426,6 +440,7 @@ def success(request):
 
     order_id = random.randint(10000, 99999)
 
+    # Email background mein jayega, Gunicorn timeout nahi hoga
     if user:
         try:
             email_context = {
@@ -446,15 +461,14 @@ def success(request):
             from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
             to_email = [user.email]
 
-            if html_message:
-                email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
-                email.attach_alternative(html_message, "text/html")
-                email.send(fail_silently=True)
-            else:
-                from django.core.mail import send_mail
-                send_mail(subject, plain_message, from_email, to_email, fail_silently=True)
+            thread = threading.Thread(
+                target=send_email_in_background,
+                args=(subject, plain_message, from_email, to_email, html_message)
+            )
+            thread.daemon = True
+            thread.start()
         except Exception as e:
-            print("Mail error:", e)
+            print("Mail thread creation error:", e)
 
     return render(request, 'success.html', {
         'user': user,
