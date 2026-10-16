@@ -223,32 +223,55 @@
     <!--================End Cart Area =================-->
 
 <script type="text/javascript">
-var stripe = Stripe('pk_test_51MshH6SJuXwPfjjrrgxJ5tubbOgYAhRrqNcd4RDUSq1peWpIMZrjhIiTncSUWO9u6byeDf4KxdZPkFD4hU55mVOg00aRL5RT8x');
-var checkoutButton = document.getElementById('checkout-button');
+document.addEventListener("DOMContentLoaded", function () {
+    var stripe = Stripe('pk_test_51MshH6SJuXwPfjjrrgxJ5tubbOgYAhRrqNcd4RDUSq1peWpIMZrjhIiTncSUWO9u6byeDf4KxdZPkFD4hU55mVOg00aRL5RT8x');
+    var checkoutButton = document.getElementById('checkout-button');
 
-checkoutButton.addEventListener('click', function() {
- fetch('/create-checkout-session/', {
- method: 'POST',
-    headers:{
-        'Accept': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
-    },
-    body: JSON.stringify({'post_data':'{{net_price}}'})
- })
- .then(function(response) {
- return response.json();
- })
- .then(function(session) {
- return stripe.redirectToCheckout({ sessionId: session.id });
- })
- .then(function(result) {
- if (result.error) {
- alert(result.error.message);
- }
- })
- .catch(function(error) {
- console.error('Error:', error);
- });
+    if (!checkoutButton) return;
+
+    checkoutButton.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        var netPrice = document.getElementById('net_price').value;
+        if (!netPrice || parseInt(netPrice) <= 0) {
+            alert('Your bag is empty.');
+            return;
+        }
+
+        checkoutButton.disabled = true;
+        checkoutButton.innerText = "Processing...";
+
+        fetch('/create-checkout-session/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({'post_data': netPrice})
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function(session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function(result) {
+            if (result && result.error) {
+                alert(result.error.message);
+                checkoutButton.disabled = false;
+                checkoutButton.innerText = "Proceed To Checkout";
+            }
+        })
+        .catch(function(error) {
+            console.error('Checkout error:', error);
+            alert('Unable to initiate checkout. Please check the browser console.');
+            checkoutButton.disabled = false;
+            checkoutButton.innerText = "Proceed To Checkout";
+        });
+    });
 });
 </script>
 
