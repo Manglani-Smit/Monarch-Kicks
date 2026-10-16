@@ -346,7 +346,6 @@ def change_qty(request,pk):
 
 @csrf_exempt
 def create_checkout_session(request):
-    domain_url = request.build_absolute_uri('/')[:-1]
     amount = int(json.load(request)['post_data'])
     final_amount = amount * 100
     user = User.objects.get(email=request.session['email'])
@@ -362,15 +361,15 @@ def create_checkout_session(request):
                 'product_data': {
                     'name': 'Checkout Session Data',
                     'description': f'''Customer:{user_name},\n\n
-                Address:{user_address},\n
-                Mobile:{user_mobile}''',
+					Address:{user_address},\n
+					Mobile:{user_mobile}''',
                 },
             },
             'quantity': 1,
         }],
         mode='payment',
-        success_url = domain_url + f'/confirmation/?user_email={user.email}',
-        cancel_url=domain_url + '/cancel/',
+        success_url=YOUR_DOMAIN + '/success.html',
+        cancel_url=YOUR_DOMAIN + '/cancel.html',
         customer_email=user.email,
         shipping_address_collection={
             'allowed_countries': ['IN'],
@@ -379,78 +378,14 @@ def create_checkout_session(request):
     return JsonResponse({'id': session.id})
 
 
-def confirmation(request):
-    user_email = request.GET.get('user_email') or request.session.get('email')
+def success(request):
+    user = User.objects.get(email=request.session['email'])
+    carts = Cart.objects.filter(user=user, payment_status=False)
+    for i in carts:
+        i.payment_status = True
+        i.save()
+    return render(request, 'success.html')
 
-    user = None
-    if user_email:
-        user = User.objects.filter(email=user_email).first()
-        request.session['email'] = user_email
-
-    carts = []
-    total_amount = 0
-
-    if user:
-        # Pehle unpaid carts uthao
-        unpaid_carts = list(Cart.objects.filter(user=user, payment_status=False).select_related('product'))
-
-        if unpaid_carts:
-            carts = unpaid_carts
-            for i in carts:
-                total_amount += i.total_price
-                i.payment_status = True
-                i.save()
-        else:
-            # Agar page reload hua hai toh recent paid carts le aao
-            carts = list(
-                Cart.objects.filter(user=user, payment_status=True).select_related('product').order_by('-id')[:5])
-            total_amount = sum(i.total_price for i in carts)
-
-    # Session cart clear
-    request.session['cart_count'] = 0
-    if 'cart' in request.session:
-        del request.session['cart']
-    request.session.modified = True
-
-    order_id = random.randint(10000, 99999)
-
-    # Email Dispatch
-    if user:
-        try:
-            email_context = {
-                'user': user,
-                'carts': carts,
-                'total_amount': total_amount,
-                'order_id': order_id,
-            }
-            subject = f"Order Placed! Monarch Kicks (#MK-{order_id})"
-
-            try:
-                html_message = render_to_string('email_confirmation.html', email_context)
-                plain_message = strip_tags(html_message)
-            except Exception:
-                html_message = None
-                plain_message = f"Hello {user.fname}, your order #{order_id} has been placed successfully. Total: ₹{total_amount}"
-
-            from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
-            to_email = [user.email]
-
-            if html_message:
-                email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
-                email.attach_alternative(html_message, "text/html")
-                email.send(fail_silently=False)
-            else:
-                from django.core.mail import send_mail
-                send_mail(subject, plain_message, from_email, to_email, fail_silently=False)
-        except Exception as e:
-            print("Mail Error on Render:", e)
-
-    return render(request, 'confirmation.html', {
-        'user': user,
-        'carts': carts,
-        'total_amount': total_amount,
-        'order_id': order_id,
-    })
 
 def cancel(request):
     return render(request, 'cancel.html')
