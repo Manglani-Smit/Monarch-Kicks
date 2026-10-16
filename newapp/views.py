@@ -380,18 +380,29 @@ def create_checkout_session(request):
 
 def confirmation(request):
     try:
-        user_email = request.GET['user_email']
-    except:
-        user_email = request.session['email']
+        user_email = request.GET.get('user_email', request.session.get('email'))
+    except Exception:
+        user_email = request.session.get('email')
+
     request.session['email'] = user_email
     user = User.objects.get(email=user_email)
+
+    # 1. Unpaid carts fetch karo
     unpaid_carts = Cart.objects.filter(user=user, payment_status=False).select_related('product')
     carts = list(unpaid_carts)
+
     total_amount = 0
     for i in carts:
-        total_amount = total_amount + i.total_price
+        total_amount += i.total_price
         i.payment_status = True
         i.save()
+
+    # Agar session me cart items count rakhte ho toh use 0 kar do
+    request.session['cart_count'] = 0
+    if 'cart' in request.session:
+        del request.session['cart']
+    request.session.modified = True
+
     order_id = random.randint(10000, 99999)
     email_context = {
         'user': user,
@@ -399,17 +410,21 @@ def confirmation(request):
         'total_amount': total_amount,
         'order_id': order_id,
     }
+
+    # 2. Safe Mail Send
     try:
-        subject = f"Order Placed! Karma Shoes (#KRM-{order_id})"
+        subject = f"Order Placed! Monarch Kicks (#MK-{order_id})"
         html_message = render_to_string('email_confirmation.html', email_context)
         plain_message = strip_tags(html_message)
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
         to_email = [user.email]
+
         email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
         email.attach_alternative(html_message, "text/html")
         email.send(fail_silently=False)
     except Exception as e:
-        print("Mail error:", e)
+        print("Mail error details:", e)
+
     return render(request, 'confirmation.html', {
         'user': user,
         'carts': carts,
@@ -417,11 +432,12 @@ def confirmation(request):
         'order_id': order_id,
     })
 
+
 def cancel(request):
     return render(request, 'cancel.html')
 
-def myorder(request):
-    user=User.objects.get(email=request.session['email'])
-    carts = Cart.objects.filter(user=user,payment_status=True)
 
-    return render(request,'myorder.html',{'carts':carts})
+def myorder(request):
+    user = User.objects.get(email=request.session['email'])
+    carts = Cart.objects.filter(user=user, payment_status=True).select_related('product')
+    return render(request, 'myorder.html', {'carts': carts})

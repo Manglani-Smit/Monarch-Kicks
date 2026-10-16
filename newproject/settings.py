@@ -130,7 +130,9 @@ STRIPE_SECRET_KEY = "sk_test_51MshH6SJuXwPfjjry2IkUKMu8iyfVbVspwNw3RvLshMUCMRRCi
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "sangitamanglani0812@gmail.com"
-EMAIL_HOST_PASSWORD = "segx wylx faov zrqk"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.environ.get('sangitamanglani0812@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
