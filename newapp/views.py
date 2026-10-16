@@ -382,35 +382,31 @@ def create_checkout_session(request):
 def confirmation(request):
     user_email = request.GET.get('user_email') or request.session.get('email')
 
-    if not user_email:
-        return render(request, 'confirmation.html', {'error': 'User not found'})
-
-    request.session['email'] = user_email
-
-    # 1. Safe User Fetch (Crash-proof)
-    try:
-        user = User.objects.get(email=user_email)
-    except User.DoesNotExist:
-        user = None
+    user = None
+    if user_email:
+        user = User.objects.filter(email=user_email).first()
+        request.session['email'] = user_email
 
     carts = []
     total_amount = 0
 
-    # 2. Update Cart Items if User Exists
     if user:
-        unpaid_carts = Cart.objects.filter(user=user, payment_status=False).select_related('product')
-        carts = list(unpaid_carts)
+        # Pehle unpaid carts uthao
+        unpaid_carts = list(Cart.objects.filter(user=user, payment_status=False).select_related('product'))
 
-        # Agar unpaid nahi mila toh recently paid le lo (refresh hone par blank na ho)
-        if not carts:
-            carts = list(Cart.objects.filter(user=user, payment_status=True).select_related('product')[:5])
-        else:
+        if unpaid_carts:
+            carts = unpaid_carts
             for i in carts:
                 total_amount += i.total_price
                 i.payment_status = True
                 i.save()
+        else:
+            # Agar page reload hua hai toh recent paid carts le aao
+            carts = list(
+                Cart.objects.filter(user=user, payment_status=True).select_related('product').order_by('-id')[:5])
+            total_amount = sum(i.total_price for i in carts)
 
-    # Clear session cart indicators
+    # Session cart clear
     request.session['cart_count'] = 0
     if 'cart' in request.session:
         del request.session['cart']
@@ -418,7 +414,7 @@ def confirmation(request):
 
     order_id = random.randint(10000, 99999)
 
-    # 3. Completely Isolated Email Sending (Failure will NEVER cause 500 error)
+    # Email Dispatch
     if user:
         try:
             email_context = {
@@ -429,13 +425,12 @@ def confirmation(request):
             }
             subject = f"Order Placed! Monarch Kicks (#MK-{order_id})"
 
-            # Agar template exist karta hai toh HTML, warna simple fallback
             try:
                 html_message = render_to_string('email_confirmation.html', email_context)
                 plain_message = strip_tags(html_message)
             except Exception:
                 html_message = None
-                plain_message = f"Hello {user.fname}, your order #{order_id} has been placed successfully."
+                plain_message = f"Hello {user.fname}, your order #{order_id} has been placed successfully. Total: ₹{total_amount}"
 
             from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', settings.EMAIL_HOST_USER)
             to_email = [user.email]
@@ -443,12 +438,12 @@ def confirmation(request):
             if html_message:
                 email = EmailMultiAlternatives(subject, plain_message, from_email, to_email)
                 email.attach_alternative(html_message, "text/html")
-                email.send(fail_silently=True)
+                email.send(fail_silently=False)
             else:
                 from django.core.mail import send_mail
-                send_mail(subject, plain_message, from_email, to_email, fail_silently=True)
+                send_mail(subject, plain_message, from_email, to_email, fail_silently=False)
         except Exception as e:
-            print("Background mail error:", e)
+            print("Mail Error on Render:", e)
 
     return render(request, 'confirmation.html', {
         'user': user,
@@ -456,7 +451,6 @@ def confirmation(request):
         'total_amount': total_amount,
         'order_id': order_id,
     })
-
 
 def cancel(request):
     return render(request, 'cancel.html')
